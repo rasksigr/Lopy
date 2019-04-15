@@ -19,6 +19,14 @@ import adafruit_rfm9x
 #Add JSON support
 import json
 
+nodeA = 0x1234123412341234123412341234123412341234123412341234
+nodeB = 0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd
+nodeC = 0x12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab
+str(nodeA)
+str(nodeB)
+str(nodeC)
+
+
 # Button A
 btnA = DigitalInOut(board.D5)
 btnA.direction = Direction.INPUT
@@ -51,7 +59,7 @@ width = display.width
 height = display.height
 
 ## Get JSON
-with open("PreSign-Eth.json", "r") as read_file:
+with open("ETH_BTC-Alpha.json", "r") as read_file:
     pstx = json.load(read_file)
 str(pstx)
 print(pstx)
@@ -68,41 +76,75 @@ while True:
     packet = None
     # draw a box to clear the image
     display.fill(0)
-    display.text('RasPi LoRa', 35, 0, 1)
+    display.text('Överline', 35, 0, 1)
 
     # check for packet rx
     packet = rfm9x.receive()
     if packet is None:
         display.show()
-        display.text('- Waiting for PKT -', 15, 20, 1)
+        display.text('- Node A Receiving -', 12, 20, 1)
     else:
         # Display the packet text and rssi
         display.fill(0)
+        display.text("Tx Received", 20, 0, 1)
+        display.show()
+        time.sleep(1)
+        log = open("rec_log.txt", "w")
         prev_packet = packet
         packet_text = str(prev_packet, "utf-8")
-        display.text('RX: ', 0, 0, 1)
-        ##addding serial out for received to terminal and Log
-#        send.text(packet_text.MISO) #      <-- this code is fake, but....stil....
-        ###### Log Bit of code
-#        log.text(packet_text.sendToLog.txt)
-#        scribv = open('/home.pi/log_file.txt', 'w')
-#        scribv.write(get_text())
-#        scribv.close()
-        
-        ##
+        log.write(packet_text + "/r/n")
+        log.close()
+        if packet_text == nodeA:
+            exit
+        elif packet_text == nodeB | packet_text == nodeC:
+            display.text('Transaction Found', 0, 0, 1)
+            display.show()
+            while btnA.value == True & btnC.value == True:
+                display.text('Submit PoD Claim?', 0, 0, 1)
+                display.text('Yes?', 0,20,1)
+                display.text('No?', 55,20,1)
+                display.show()
+            if btnA.value == False:
+                display.fill(0)
+                button_a_data = bytes(nodeA + "\r\n","utf-8")
+                rfm9x.send(button_a_data)
+                x=15
+                minX = -6 * len(nodeA); # 12 = 6 pixels/character * text size 2
+                while x < minX:
+                    display.fill(0)
+                    display.text(nodeA, x, 0, 1)
+                    display.show()
+                    x = x-8
+                display.text('PoD Entry Sent', 25, 15, 1)
+                time.sleep(1.5)
+                display.fill(0)
+            elif btnC.value == False:
+                display.fill(0)
+                display.text('Declined PoD Entry', 15, 15, 1)
+                time.sleep(1.5)
+                display.fill(0)
+    if not btnB.value:
+        # Send Button B
+        display.fill(0)
+        button_b_data = bytes(nodeA + "\r\n","utf-8")
+        rfm9x.send(button_b_data)
+        display.text('Sent Transaction', 25, 15, 1)
+    
+        """
         x=15
         minX = -6 * len(packet_text); # 12 = 6 pixels/character * text size 2
         while x < minX:
             display.fill(0)
             display.text(packet_text, x, 0, 1)
             display.show()
-            x = x-1
-
-        ##
+            x = x-4
+        """
+        """
         display.text("Tx Received", 20, 0, 1)
         display.show()
         time.sleep(1)
-
+        """
+"""
     if not btnA.value:
         # Send Button A
         display.fill(0)
@@ -122,6 +164,6 @@ while True:
         rfm9x.send(button_c_data)
         display.text('Sent JSON_C', 25, 15, 1)
 
-
-    display.show()
-    time.sleep(0.1)
+"""
+display.show()
+time.sleep(0.1)
