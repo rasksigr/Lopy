@@ -101,7 +101,7 @@ while True:
         else: False
 
         ##
-        display.text(packet_text, 20, 0, 1)
+        display.text("packet_text", 20, 0, 1)
         display.show()
         display.scroll(0, 15)
         time.sleep(1)
