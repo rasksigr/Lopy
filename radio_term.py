@@ -35,8 +35,35 @@ btnC.pull = Pull.UP
 # Create the I2C interface.
 i2c = busio.I2C(board.SCL, board.SDA)
 
+
+
+
 # 128x32 OLED Display
 display = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c, addr=0x3c)
+
+###############
+def hw_scroll_off(self):
+    self.write_cmd(SET_HWSCROLL_OFF) # turn off scroll
+      
+def hw_scroll_h(self, direction=True):   # default to scroll right
+    self.write_cmd(SET_HWSCROLL_OFF)  # turn off hardware scroll per SSD1306 datasheet
+    if not direction:
+        self.write_cmd(SET_HWSCROLL_LEFT)
+        self.write_cmd(0x00) # dummy byte
+        self.write_cmd(0x07) # start page = page 7
+        self.write_cmd(0x00) # frequency = 5 frames
+        self.write_cmd(0x00) # end page = page 0
+    else:
+        self.write_cmd(SET_HWSCROLL_RIGHT)
+        self.write_cmd(0x00) # dummy byte
+        self.write_cmd(0x00) # start page = page 0
+        self.write_cmd(0x00) # frequency = 5 frames
+        self.write_cmd(0x07) # end page = page 7
+         
+    self.write_cmd(0x00)
+    self.write_cmd(0xff)
+    self.write_cmd(SET_HWSCROLL_ON) # activate scroll
+###############
 # Clear the display.
 display.fill(0)
 display.show()
@@ -92,14 +119,15 @@ while True:
         packet_text = str(prev_packet, "utf-8")
         display.text('RX: ', 0, 0, 1)
         ##addding serial out for received to terminal and Log
-        send.text(packet_text.MISO) #      <-- this code is fake, but....stil....
+#        send.text(packet_text.MISO) #      <-- this code is fake, but....stil....
         ###### Log Bit of code
-        log.text(packet_text.sendToLog.txt)
-        scribv = open('/home.pi/log_file.txt', 'w')
-        scribv.write(get_text())
-        fscribv.close()
+#        log.text(packet_text.sendToLog.txt)
+#        scribv = open('/home.pi/log_file.txt', 'w')
+#        scribv.write(get_text())
+#        scribv.close()
         ##
         display.text(packet_text, 25, 0, 1)
+        distplay.hw_scroll_h()
         time.sleep(1)
 
     if not btnA.value:
