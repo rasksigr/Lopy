@@ -90,8 +90,8 @@ while True:
         x = width
         minX = -12 * len(packet_text); # 12 = 6 pixels/character * text size 2
     while True:
-        display.clearDisplay()
-        display.setCursor(x, 20)
+        display.fill(0)
+        display.text(x, 0, 1)
         display.print(packet_text)
         display.show()
         x = x-1
