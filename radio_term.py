@@ -94,7 +94,7 @@ while True:
         display.setCursor(x, 20)
         display.print(packet_text)
         display.show()
-        x = x--
+        x = x-1
         if x > minX: 
             True
         else: False
