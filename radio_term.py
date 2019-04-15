@@ -88,7 +88,7 @@ while True:
 #        scribv.close()
         
         ##
-        int(x)=128
+        x=128
         minX = -12 * len(packet_text); # 12 = 6 pixels/character * text size 2
         while True:
             display.fill(0)
