@@ -87,14 +87,17 @@ while True:
 #        scribv.write(get_text())
 #        scribv.close()
         ##
-        x = display.width()
-        minX = -12 * strlen(packet_text); # 12 = 6 pixels/character * text size 2
-    while x < minX:
-        display.clearDisplay();
-        display.setCursor(x, 20);
-        display.print(message);
-        display.display();
-        if(--x < minX) x = display.width();
+        x = width
+        minX = -12 * len(packet_text); # 12 = 6 pixels/character * text size 2
+    while True:
+        display.clearDisplay()
+        display.setCursor(x, 20)
+        display.print(packet_text)
+        display.show()
+        x = x--
+        if x > minX: 
+            True
+        else: False
 
         ##
         display.text(packet_text, 20, 0, 1)
