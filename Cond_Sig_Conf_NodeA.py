@@ -76,7 +76,7 @@ while True:
     packet = None
     # draw a box to clear the image
     display.fill(0)
-    display.text('Överline', 35, 0, 1)
+    display.text('Overline', 35, 0, 1)
 
     # check for packet rx
     packet = rfm9x.receive()
@@ -126,6 +126,7 @@ while True:
     if not btnB.value:
         # Send Button B
         display.fill(0)
+        str(nodeA)
         button_b_data = bytes(nodeA + "\r\n","utf-8")
         rfm9x.send(button_b_data)
         display.text('Sent Transaction', 25, 15, 1)
