@@ -95,7 +95,7 @@ while True:
         send.text(packet_text.MISO) #      <-- this code is fake, but....stil....
         ###### Log Bit of code
         log.text(packet_text.sendToLog.txt)
-        scribv = open('log_file.txt', 'w')
+        scribv = open('/home.pi/log_file.txt', 'w')
         scribv.write(get_text())
         fscribv.close()
         ##
