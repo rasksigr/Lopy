@@ -17,11 +17,6 @@ import adafruit_rfm9x
 #Add JSON support
 import json
 
-SET_HWSCROLL_OFF    = const(0x2e)
-SET_HWSCROLL_ON     = const(0x2f)
-SET_HWSCROLL_RIGHT  = const(0x26)
-SET_HWSCROLL_LEFT   = const(0x27)
-
 # Button A
 btnA = DigitalInOut(board.D5)
 btnA.direction = Direction.INPUT
@@ -40,34 +35,12 @@ btnC.pull = Pull.UP
 # Create the I2C interface.
 i2c = busio.I2C(board.SCL, board.SDA)
 
-
-
-
 # 128x32 OLED Display
 display = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c, addr=0x3c)
 
 ###############
-def hw_scroll_off(self):
-    self.write_cmd(SET_HWSCROLL_OFF) # turn off scroll
-      
-def hw_scroll_h(self, direction=True):   # default to scroll right
-    self.write_cmd(SET_HWSCROLL_OFF)  # turn off hardware scroll per SSD1306 datasheet
-    if not direction:
-        self.write_cmd(SET_HWSCROLL_LEFT)
-        self.write_cmd(0x00) # dummy byte
-        self.write_cmd(0x07) # start page = page 7
-        self.write_cmd(0x00) # frequency = 5 frames
-        self.write_cmd(0x00) # end page = page 0
-    else:
-        self.write_cmd(SET_HWSCROLL_RIGHT)
-        self.write_cmd(0x00) # dummy byte
-        self.write_cmd(0x00) # start page = page 0
-        self.write_cmd(0x00) # frequency = 5 frames
-        self.write_cmd(0x07) # end page = page 7
-         
-    self.write_cmd(0x00)
-    self.write_cmd(0xff)
-    self.write_cmd(SET_HWSCROLL_ON) # activate scroll
+
+
 ###############
 # Clear the display.
 display.fill(0)
@@ -76,28 +49,11 @@ width = display.width
 height = display.height
 
 ## Get JSON
-with open("PreSign-Prac.json", "r") as read_file:
+with open("PreSign-Eth.json", "r") as read_file:
     pstx = json.load(read_file)
-    
+str(pstx)
+print(pstx)
 ################
-
-#var IDK == 0
-#while lateNight[IDK]<5
-#    ("pkg"+lateNight[IDK])=lateNight[IDK]
-
-
-#    datalen = length(pstx)
-#    int cyc = 0
-#    int numc = 1
-#   while(datalen>240){
-#    bytes[cyc,240*numc] = ("pkg"+numc)
-#    cyc = cyc + 240
-#    datalen = datalen - 240
-#    }
-    
-
-##
-
 # Configure LoRa Radio
 CS = DigitalInOut(board.CE1)
 RESET = DigitalInOut(board.D25)
@@ -131,8 +87,19 @@ while True:
 #        scribv.write(get_text())
 #        scribv.close()
         ##
-        display.text(packet_text, 25, 0, 1)
-        display.hw_scroll_h()
+        x = display.width()
+        minX = -12 * strlen(packet_text); // 12 = 6 pixels/character * text size 2
+    while x < minX:
+        display.clearDisplay();
+        display.setCursor(x, 20);
+        display.print(message);
+        display.display();
+        if(--x < minX) x = display.width();
+
+        ##
+        display.text(packet_text, 20, 0, 1)
+        display.show()
+        display.scroll(0, 15)
         time.sleep(1)
 
     if not btnA.value:
