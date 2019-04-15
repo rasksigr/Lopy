@@ -88,20 +88,17 @@ while True:
 #        scribv.close()
         
         ##
-        x=128
-        minX = -12 * len(packet_text); # 12 = 6 pixels/character * text size 2
-        while True:
+        x=15
+        minX = -6 * len(packet_text); # 12 = 6 pixels/character * text size 2
+        while x < minX:
             display.fill(0)
             display.text(packet_text, x, 0, 1)
             display.show()
             x = x-1
-            if x > minX: True
-            else: False
 
         ##
-        display.text(packet_text, 20, 0, 1)
+        display.text("Tx Received", 20, 0, 1)
         display.show()
-        display.scroll(0, 15)
         time.sleep(1)
 
     if not btnA.value:
