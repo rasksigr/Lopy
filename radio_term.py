@@ -15,7 +15,7 @@ import adafruit_ssd1306
 # Import RFM9x
 import adafruit_rfm9x
 #Add JSON support
-import JSON
+import json
 
 # Button A
 btnA = DigitalInOut(board.D5)
@@ -44,7 +44,7 @@ width = display.width
 height = display.height
 
 ## Get JSON
-with open("PreSign_prac.json", "r") as read_file:
+with open("PreSign-Prac.json", "r") as read_file:
     pstx = json.load(read_file)
     
 ################
