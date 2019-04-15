@@ -19,9 +19,9 @@ import adafruit_rfm9x
 #Add JSON support
 import json
 
-nodeA = 0x1234123412341234123412341234123412341234123412341234
-nodeB = 0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd
-nodeC = 0x12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab
+nodeA = "0x1234123412341234123412341234123412341234123412341234"
+nodeB = "0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
+nodeC = "0x12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab"
 str(nodeA)
 str(nodeB)
 str(nodeC)
@@ -126,7 +126,6 @@ while True:
     if not btnB.value:
         # Send Button B
         display.fill(0)
-        str(nodeA)
         button_b_data = bytes(nodeA + "\r\n","utf-8")
         rfm9x.send(button_b_data)
         display.text('Sent Transaction', 25, 15, 1)
