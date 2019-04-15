@@ -17,6 +17,11 @@ import adafruit_rfm9x
 #Add JSON support
 import json
 
+SET_HWSCROLL_OFF    = const(0x2e)
+SET_HWSCROLL_ON     = const(0x2f)
+SET_HWSCROLL_RIGHT  = const(0x26)
+SET_HWSCROLL_LEFT   = const(0x27)
+
 # Button A
 btnA = DigitalInOut(board.D5)
 btnA.direction = Direction.INPUT
@@ -127,7 +132,7 @@ while True:
 #        scribv.close()
         ##
         display.text(packet_text, 25, 0, 1)
-        distplay.hw_scroll_h()
+        display.hw_scroll_h()
         time.sleep(1)
 
     if not btnA.value:
