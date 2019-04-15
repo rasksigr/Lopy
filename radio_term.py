@@ -88,11 +88,12 @@ while True:
 #        scribv.close()
         ##
         x = width
+        int(x)
         minX = -12 * len(packet_text); # 12 = 6 pixels/character * text size 2
     while True:
         display.fill(0)
-        display.text(x, 0, 1)
-        display.print(packet_text)
+        display.text(packet_text, x, 0, 1)
+        #display.print(packet_text)
         display.show()
         x = x-1
         if x > minX: 
