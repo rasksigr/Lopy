@@ -86,13 +86,13 @@ while True:
 #        scribv = open('/home.pi/log_file.txt', 'w')
 #        scribv.write(get_text())
 #        scribv.close()
+        
         ##
-        x = width
-        int(x)
+        int(width)
         minX = -12 * len(packet_text); # 12 = 6 pixels/character * text size 2
     while True:
         display.fill(0)
-        display.text(packet_text, x, 0, 1)
+        display.text(packet_text, width, 0, 1)
         #display.print(packet_text)
         display.show()
         x = x-1
