@@ -88,7 +88,7 @@ while True:
 #        scribv.close()
         ##
         x = display.width()
-        minX = -12 * strlen(packet_text); // 12 = 6 pixels/character * text size 2
+        minX = -12 * strlen(packet_text); # 12 = 6 pixels/character * text size 2
     while x < minX:
         display.clearDisplay();
         display.setCursor(x, 20);
