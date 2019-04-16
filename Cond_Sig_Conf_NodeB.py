@@ -79,15 +79,7 @@ while True:
         display.show()
         display.text('- Node B Receiving -', 12, 20, 1)
         print("node receiving nothing")
-    elif packet_text[:12] == "Tx approved":
-        print('relaying momentum')
-        display.fill(0)
-        print("Relaying Tx!")
-        button_b_data = bytes(packet_text,"utf-8")
-        rfm9x.send(button_b_data)
-        display.fill(0)
-        display.text('Relay Successful', 0, 0, 1)
-        display.text('X.XXXXX NRG Collected', 0, 20, 1)
+    
     else:
         # Display the packet text and rssi
         print("made it into the else statement. woo.")
@@ -102,6 +94,15 @@ while True:
         log.close()
         if packet_text == nodeB:
             exit
+        elif packet_text[:12] == "Tx approved":
+            print('relaying momentum')
+            display.fill(0)
+            print("Relaying Tx!")
+            button_b_data = bytes(packet_text,"utf-8")
+            rfm9x.send(button_b_data)
+            display.fill(0)
+            display.text('Relay Successful', 0, 0, 1)
+            display.text('X.XXXXX NRG Collected', 0, 20, 1)
         else:
             display.fill(0)
             display.text('Transaction Found', 0, 0, 1)
