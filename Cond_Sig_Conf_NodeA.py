@@ -87,14 +87,15 @@ while True:
         display.text("Tx Received", 20, 0, 1)
         display.show()
         time.sleep(1)
-        log = open("rec_log.txt", "w")
+#        log = open("rec_log.txt", "w")
         prev_packet = packet
         packet_text = str(prev_packet, "utf-8")
-        log.write(packet_text + "/r/n")
-        log.close()
+        print(packet_text)
+#        log.write(packet_text + "/r/n")
+#        log.close()
         if packet_text == nodeA:
             exit
-        elif packet_text[:12] == "Tx approved":
+        elif packet_text[:11] == "Tx approved":
             print('relaying momentum')
             display.fill(0)
             print("Relaying Tx!")
@@ -113,7 +114,6 @@ while True:
             time.sleep(1)
             while btnA.value == True & btnC.value == True:
                 display.fill(0)
-                print('select option')
                 display.text('Submit PoD Claim?', 0, 0, 1)
                 display.text('YES', 0,20,1)
                 display.text('NO', 105,20,1)
@@ -132,6 +132,7 @@ while True:
                     display.show()
                     x = x-8
                 display.text('PoD Entry Sent', 25, 15, 1)
+                time.sleep(10)
                 print('PoD entry sent')
                 time.sleep(1.5)
                 display.fill(0)
