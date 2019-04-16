@@ -1,11 +1,3 @@
-"""
-# program is meant to outline a send/receive/decide/react style system
-"""
-"""
-Example for using the RFM9x Radio with Raspberry Pi.
-Learn Guide: https://learn.adafruit.com/lora-and-lorawan-for-raspberry-pi
-Author: Brent Rubell for Adafruit Industries
-"""
 # Import Python System Libraries
 import time
 # Import Blinka Libraries
@@ -48,10 +40,6 @@ i2c = busio.I2C(board.SCL, board.SDA)
 # 128x32 OLED Display
 display = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c, addr=0x3c)
 
-###############
-
-
-###############
 # Clear the display.
 display.fill(0)
 display.show()
@@ -59,10 +47,10 @@ width = display.width
 height = display.height
 
 ## Get JSON
-with open("ETH_BTC-Alpha.json", "r") as read_file:
-    pstx = json.load(read_file)
-str(pstx)
-print(pstx)
+#with open("ETH_BTC-Alpha.json", "r") as read_file:
+#    pstx = json.load(read_file)
+#str(pstx)
+#print(pstx)
 ################
 # Configure LoRa Radio
 CS = DigitalInOut(board.CE1)
@@ -133,40 +121,5 @@ while True:
         button_b_data = bytes(nodeA,"utf-8")
         rfm9x.send(button_b_data)
         display.text('Sent Transaction', 25, 15, 1)
-    
-        """
-        x=15
-        minX = -6 * len(packet_text); # 12 = 6 pixels/character * text size 2
-        while x < minX:
-            display.fill(0)
-            display.text(packet_text, x, 0, 1)
-            display.show()
-            x = x-4
-        """
-        """
-        display.text("Tx Received", 20, 0, 1)
-        display.show()
-        time.sleep(1)
-        """
-"""
-    if not btnA.value:
-        # Send Button A
-        display.fill(0)
-        button_a_data = bytes("Button A!\r\n","utf-8")
-        rfm9x.send(button_a_data)
-        display.text('Sent Button A!', 25, 15, 1)
-    elif not btnB.value:
-        # Send Button B
-        display.fill(0)
-        button_b_data = bytes("Button B!\r\n","utf-8")
-        rfm9x.send(button_b_data)
-        display.text('Sent Button B!', 25, 15, 1)
-    elif not btnC.value:
-        # Send Button C
-        display.fill(0)
-        button_c_data = bytes(pstx + "\r\n","utf-8")
-        rfm9x.send(button_c_data)
-        display.text('Sent JSON_C', 25, 15, 1)
-"""
 display.show()
 time.sleep(0.1)
