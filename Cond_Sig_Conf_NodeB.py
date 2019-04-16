@@ -116,7 +116,7 @@ while True:
                 button_a_data = bytes(nodeB_pSig,"utf-8")
                 rfm9x.send(button_a_data)
                 x=15
-                minX = -6 * len(nodeA); # 12 = 6 pixels/character * text size 2
+                minX = -6 * len(nodeB_pSig); # 12 = 6 pixels/character * text size 2
                 while x < minX:
                     display.fill(0)
                     display.text(nodeB_pSig, x, 0, 1)
