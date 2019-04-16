@@ -14,9 +14,15 @@ import json
 nodeA = "0x1234123412341234123412341234123412341234123412341234"
 nodeB = "0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
 nodeC = "0x12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab"
+nodeA_pSig = 'Tx approved: Rad1935'
+nodeB_pSig = 'Tx approved: Fly1903'
+nodeC_pSig = 'Tx approved: Cal1876'
 str(nodeA)
 str(nodeB)
 str(nodeC)
+str(nodeA_pSig)
+str(nodeB_pSig)
+str(nodeC_psig)
 
 
 # Button A
@@ -73,6 +79,15 @@ while True:
         display.show()
         display.text('- Node B Receiving -', 12, 20, 1)
         print("node receiving nothing")
+    elif packet_text[:12] == "Tx approved":
+        print('relaying momentum')
+        display.fill(0)
+        print("Relaying Tx!")
+        button_b_data = bytes(packet_text,"utf-8")
+        rfm9x.send(button_b_data)
+        display.fill(0)
+        display.text('Relay Successful', 0, 0, 1)
+        display.text('X.XXXXX NRG Collected', 0, 20, 1)
     else:
         # Display the packet text and rssi
         print("made it into the else statement. woo.")
@@ -88,22 +103,23 @@ while True:
         if packet_text == nodeB:
             exit
         else:
+            display.fill(0)
             display.text('Transaction Found', 0, 0, 1)
             display.show()
             while btnA.value == True & btnC.value == True:
                 display.text('Submit PoD Claim?', 0, 0, 1)
                 display.text('Yes?', 0,20,1)
-                display.text('No?', 55,20,1)
+                display.text('No?', 90,20,1)
                 display.show()
             if btnA.value == False:
                 display.fill(0)
-                button_a_data = bytes(nodeB,"utf-8")
+                button_a_data = bytes(nodeB_pSig,"utf-8")
                 rfm9x.send(button_a_data)
                 x=15
-                minX = -6 * len(nodeB); # 12 = 6 pixels/character * text size 2
+                minX = -6 * len(nodeA); # 12 = 6 pixels/character * text size 2
                 while x < minX:
                     display.fill(0)
-                    display.text(nodeB, x, 0, 1)
+                    display.text(nodeB_pSig, x, 0, 1)
                     display.show()
                     x = x-8
                 display.text('PoD Entry Sent', 25, 15, 1)
