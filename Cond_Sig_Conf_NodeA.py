@@ -65,20 +65,20 @@ spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, 915.0)
 rfm9x.tx_power = 23
 prev_packet = None
-
+print("WELCOME TO OVERLINE")
 while True:
     packet = None
     # draw a box to clear the image
     display.fill(0)
     display.text('Overline', 35, 0, 1)
-    print("made it to 'Overline")
+#    print("made it to 'Overline")
 
     # check for packet rx
     packet = rfm9x.receive()
     if packet is None:
         display.show()
         display.text('- Node A Receiving -', 12, 20, 1)
-        print("node receiving nothing")
+#        print("node receiving nothing")
     
     else:
         # Display the packet text and rssi
@@ -103,19 +103,27 @@ while True:
             display.fill(0)
             display.text('Relay Successful', 0, 0, 1)
             display.text('X.XXXXX NRG Collected', 0, 20, 1)
+            print('relay message sent')
+            time.sleep(1)
         else:
             display.fill(0)
+            print('tx request discovered')
             display.text('Transaction Found', 0, 0, 1)
             display.show()
+            time.sleep(1)
             while btnA.value == True & btnC.value == True:
+                display.fill(0)
+                print('select option')
                 display.text('Submit PoD Claim?', 0, 0, 1)
-                display.text('Yes?', 0,20,1)
-                display.text('No?', 90,20,1)
+                display.text('YES', 0,20,1)
+                display.text('NO', 105,20,1)
                 display.show()
             if btnA.value == False:
                 display.fill(0)
+                print('"YES" selected')
                 button_a_data = bytes(nodeA_pSig,"utf-8")
                 rfm9x.send(button_a_data)
+                print('pSig should be sent...?')
                 x=15
                 minX = -6 * len(nodeA_pSig); # 12 = 6 pixels/character * text size 2
                 while x < minX:
@@ -124,6 +132,7 @@ while True:
                     display.show()
                     x = x-8
                 display.text('PoD Entry Sent', 25, 15, 1)
+                print('PoD entry sent')
                 time.sleep(1.5)
                 display.fill(0)
             elif btnC.value == False:
