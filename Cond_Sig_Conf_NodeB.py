@@ -97,6 +97,7 @@ while True:
             exit
         elif packet_text[:11] == "Tx approved":
             print('relaying momentum')
+            print(packet_text)
             display.fill(0)
             print("Relaying Tx!")
             button_b_data = bytes(packet_text,"utf-8")
