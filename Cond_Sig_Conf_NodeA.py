@@ -14,16 +14,23 @@ import json
 nodeA = "0x1234123412341234123412341234123412341234123412341234"
 nodeB = "0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
 nodeC = "0x12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab12ab"
+nodeD = "0x23cd23cd23cd23cd23cd23cd23cd23cd23cd23cd23cd23cd23cd"
+nodeE = "0x007007007007007007007007007007007007007007007007007X"
 nodeA_pSig = 'Tx approved: Rad1935'
 nodeB_pSig = 'Tx approved: Fly1903'
 nodeC_pSig = 'Tx approved: Cal1876'
+nodeD_pSig = 'Tx approved: '
+nodeE_pSig = 'Tx approved: '
 str(nodeA)
 str(nodeB)
 str(nodeC)
+str(nodeD)
+str(nodeE)
 str(nodeA_pSig)
 str(nodeB_pSig)
 str(nodeC_pSig)
-
+str(nodeD_pSig)
+str(nodeE_pSig)
 
 # Button A
 btnA = DigitalInOut(board.D5)
@@ -71,6 +78,8 @@ while True:
     # draw a box to clear the image
     display.fill(0)
     display.text('Overline', 35, 0, 1)
+#    display.text('-SEND-', 40, 20, 1)
+    display.show()
 #    print("made it to 'Overline")
 
     # check for packet rx
@@ -99,11 +108,16 @@ while True:
             print('relaying momentum')
             display.fill(0)
             print("Relaying Tx!")
+            display.text('Tx Relay Request', 0, 0, 1)
+            display.text('Approved for Passage', 0, 20, 1)
+            display.show()
+            time.sleep(1)
             button_b_data = bytes(packet_text,"utf-8")
             rfm9x.send(button_b_data)
             display.fill(0)
             display.text('Relay Successful', 0, 0, 1)
             display.text('X.XXXXX NRG Collected', 0, 20, 1)
+            display.show()
             print('relay message sent')
             time.sleep(1)
         else:
