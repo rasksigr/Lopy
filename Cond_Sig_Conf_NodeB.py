@@ -22,7 +22,7 @@ str(nodeB)
 str(nodeC)
 str(nodeA_pSig)
 str(nodeB_pSig)
-str(nodeC_psig)
+str(nodeC_pSig)
 
 
 # Button A
