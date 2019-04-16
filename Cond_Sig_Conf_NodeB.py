@@ -112,12 +112,14 @@ while True:
             display.text('Transaction Found', 0, 0, 1)
             display.show()
             time.sleep(1)
-            while btnA.value != True | btnC.value != True:
+            while True: #btnA.value == True & btnC.value == True:
                 display.fill(0)
                 display.text('Submit PoD Claim?', 0, 0, 1)
                 display.text('YES', 0,20,1)
                 display.text('NO', 110,20,1)
                 display.show()
+                time.sleep(1)
+                display.fill(0)
 
                 if btnA.value == False:
                     display.fill(0)
@@ -132,18 +134,19 @@ while True:
                         display.fill(0)
                         display.text(nodeB_pSig, x, 0, 1)
                         display.show()
-                        x = x-8
+                        x = x-1
                     display.fill(0)
                     display.text('PoD Entry Sent', 25, 15, 1)
-                    time.sleep(1)
-                    print('PoD entry sent')
                     time.sleep(1.5)
+                    print('PoD entry sent')
                     display.fill(0)
+                    break
                 elif btnC.value == False:
                     display.fill(0)
                     display.text('Declined PoD Entry', 15, 15, 1)
                     time.sleep(1.5)
                     display.fill(0)
+                    break
     if not btnB.value:
         # Send Button B
         display.fill(0)
