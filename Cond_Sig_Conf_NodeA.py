@@ -118,23 +118,24 @@ while True:
                 display.text('YES', 0,20,1)
                 display.text('NO', 110,20,1)
                 display.show()
-                time.sleep(1)
                 display.fill(0)
 
                 if btnA.value == False:
+                    time.sleep(1)
                     display.fill(0)
+                    display.text("Generating PoD...", 10, 15, 1)
                     print('"YES" selected')
                     button_a_data = bytes(nodeA_pSig,"utf-8")
                     rfm9x.send(button_a_data)
                     print('pSig should be sent...?')
                     display.fill(0)
                     x=15
-                    minX = -6 * len(nodeA_pSig); # 12 = 6 pixels/character * text size 2
-                    while x < minX:
+                    minX = -6 * len(nodeA_pSig) # 12 = 6 pixels/character * text size 2
+                    while x > minX:
                         display.fill(0)
                         display.text(nodeA_pSig, x, 0, 1)
                         display.show()
-                        x = x-1
+                        x = x-4
                     display.fill(0)
                     display.text('PoD Entry Sent', 25, 15, 1)
                     time.sleep(1.5)
