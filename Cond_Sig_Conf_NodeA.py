@@ -87,6 +87,7 @@ while True:
         print("node receiving nothing")
     else:
         # Display the packet text and rssi
+        print("made it into the else statement. woo.")
         display.fill(0)
         display.text("Tx Received", 20, 0, 1)
         display.show()
@@ -108,7 +109,7 @@ while True:
                 display.show()
             if btnA.value == False:
                 display.fill(0)
-                button_a_data = bytes(nodeA + "\r\n","utf-8")
+                button_a_data = bytes(nodeA,"utf-8")
                 rfm9x.send(button_a_data)
                 x=15
                 minX = -6 * len(nodeA); # 12 = 6 pixels/character * text size 2
@@ -128,6 +129,7 @@ while True:
     if not btnB.value:
         # Send Button B
         display.fill(0)
+        print("Button Script Running!")
         button_b_data = bytes(nodeA,"utf-8")
         rfm9x.send(button_b_data)
         display.text('Sent Transaction', 25, 15, 1)
@@ -165,7 +167,6 @@ while True:
         button_c_data = bytes(pstx + "\r\n","utf-8")
         rfm9x.send(button_c_data)
         display.text('Sent JSON_C', 25, 15, 1)
-
 """
 display.show()
 time.sleep(0.1)
