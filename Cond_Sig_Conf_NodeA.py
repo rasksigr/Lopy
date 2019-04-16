@@ -22,7 +22,7 @@ str(nodeB)
 str(nodeC)
 str(nodeA_pSig)
 str(nodeB_pSig)
-str(nodeC_psig)
+str(nodeC_pSig)
 
 
 # Button A
@@ -80,6 +80,7 @@ while True:
         display.text('- Node A Receiving -', 12, 20, 1)
         print("node receiving nothing")
     elif packet_text[:12] == "Tx approved":
+        print('relaying momentum')
         display.fill(0)
         print("Relaying Tx!")
         button_b_data = bytes(packet_text,"utf-8")
