@@ -124,6 +124,7 @@ while True:
                 button_a_data = bytes(nodeA_pSig,"utf-8")
                 rfm9x.send(button_a_data)
                 print('pSig should be sent...?')
+                display.fill(0)
                 x=15
                 minX = -6 * len(nodeA_pSig); # 12 = 6 pixels/character * text size 2
                 while x < minX:
@@ -131,8 +132,9 @@ while True:
                     display.text(nodeA_pSig, x, 0, 1)
                     display.show()
                     x = x-8
+                display.fill(0)
                 display.text('PoD Entry Sent', 25, 15, 1)
-                time.sleep(10)
+                time.sleep(1)
                 print('PoD entry sent')
                 time.sleep(1.5)
                 display.fill(0)
