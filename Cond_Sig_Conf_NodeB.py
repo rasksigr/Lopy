@@ -113,12 +113,15 @@ while True:
             display.text('Transaction Found', 0, 0, 1)
             display.show()
             time.sleep(1)
-            while btnA.value == True & btnC.value == True:
+            while True:
                 display.fill(0)
                 display.text('Submit PoD Claim?', 0, 0, 1)
                 display.text('YES', 0,20,1)
                 display.text('NO', 105,20,1)
                 display.show()
+                if btnA.value != True | btnC.value != True:
+                    display.fill(0)
+                    break
             if btnA.value == False:
                 display.fill(0)
                 print('"YES" selected')
