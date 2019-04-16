@@ -87,7 +87,7 @@ while True:
         log.close()
         if packet_text == nodeB:
             exit
-        elif:
+        else:
             display.text('Transaction Found', 0, 0, 1)
             display.show()
             while btnA.value == True & btnC.value == True:
